@@ -898,7 +898,10 @@ class SnapStream {
 
             this.ctx = new AudioContextPatched(options);
             this.gainNode = this.ctx.createGain();
-            this.gainNode.connect(this.ctx.destination);
+            this.analyser = this.ctx.createAnalyser();
+            this.analyser.fftSize = 256;
+            this.gainNode.connect(this.analyser);
+            this.analyser.connect(this.ctx.destination);
         } else {
             // Web Audio API is not supported
             return false;
@@ -1092,6 +1095,7 @@ class SnapStream {
     stream: AudioStream | undefined;
     ctx!: IAudioContextPatched; // | undefined;
     gainNode!: IGainNode<IAudioContext>;
+    analyser: any | undefined;
     serverSettings: ServerSettingsMessage | undefined;
     decoder: Decoder | undefined;
     sampleFormat: SampleFormat | undefined;

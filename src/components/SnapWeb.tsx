@@ -16,7 +16,8 @@ export default function SnapWeb() {
   const serverUrl = config.baseUrl;
   const [clientName, setClientName] = useState(getSavedClientName);
   const [isPlaying, setIsPlaying] = useState(false);
-  
+  const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
+
   const snapstreamRef = useRef<SnapStream | null>(null);
   const audioRef = useRef(new Audio());
   const snapControlRef = useRef(new SnapControl());
@@ -62,6 +63,7 @@ export default function SnapWeb() {
       audioRef.current.play().then(() => {
         if (!snapstreamRef.current) {
           snapstreamRef.current = new SnapStream(serverUrl);
+          setAnalyser(snapstreamRef.current.analyser);
         }
       }).catch((err: unknown) => {
         console.error('Error starting audio playback', err);
@@ -72,6 +74,7 @@ export default function SnapWeb() {
       if (snapstreamRef.current)
         snapstreamRef.current.stop();
       snapstreamRef.current = null;
+      setAnalyser(null);
       audioRef.current.pause();
       audioRef.current.src = '';
     }
@@ -105,6 +108,7 @@ export default function SnapWeb() {
         onStart={handleStartListening}
         onStop={handleStopListening}
         onChangeName={handleClientNameChange}
+        analyser={analyser}
         metadata={undefined}
       />
     </div>
