@@ -2,17 +2,13 @@ const BRIDGE_CONFIG = (window as any).BRIDGE_CONFIG || {};
 
 const SNAPSERVER_HOST = window.location.host;
 
-
-
-
-
 const meta = {
-  author: BRIDGE_CONFIG.meta?.author || "Óscar Martín Flores",
-  company: BRIDGE_CONFIG.meta?.company || "Proviox",
-  email: BRIDGE_CONFIG.meta?.email || "proviox@protovision.es",
-  web: BRIDGE_CONFIG.meta?.web || "proviox.protovision.es",
-  github: BRIDGE_CONFIG.meta?.github || "https://github.com/omartinflores",
-  linkedin: BRIDGE_CONFIG.meta?.linkedin || "https://www.linkedin.com/in/omartinflores/",
+  author: "Óscar Martín Flores",
+  company: "Proviox",
+  email: "proviox@protovision.es",
+  web: "proviox.protovision.es",
+  github: "https://github.com/omartinflores",
+  linkedin: "https://www.linkedin.com/in/omartinflores/",
 } as const;
 
 const keys = {
