@@ -10,6 +10,7 @@ export default defineConfig({
   base: '/',
   plugins: [react()],
   build: {
+    outDir: '../dist/public',
     rollupOptions: {
       output: {
         entryFileNames: `assets/[name]-${buildId}.js`,

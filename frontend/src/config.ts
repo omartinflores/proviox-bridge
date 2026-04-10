@@ -1,13 +1,18 @@
-const SNAPSERVER_HOST = "10.0.0.12:1780";
+const BRIDGE_CONFIG = (window as any).BRIDGE_CONFIG || {};
+
+const SNAPSERVER_HOST = window.location.host;
+
+
+
 
 
 const meta = {
-  author: "Óscar Martín Flores",
-  company: "Proviox",
-  email: "proviox@protovision.es",
-  web: "proviox.protovision.es",
-  github: "https://github.com/omartinflores",
-  linkedin: "https://www.linkedin.com/in/omartinflores/",
+  author: BRIDGE_CONFIG.meta?.author || "Óscar Martín Flores",
+  company: BRIDGE_CONFIG.meta?.company || "Proviox",
+  email: BRIDGE_CONFIG.meta?.email || "proviox@protovision.es",
+  web: BRIDGE_CONFIG.meta?.web || "proviox.protovision.es",
+  github: BRIDGE_CONFIG.meta?.github || "https://github.com/omartinflores",
+  linkedin: BRIDGE_CONFIG.meta?.linkedin || "https://www.linkedin.com/in/omartinflores/",
 } as const;
 
 const keys = {
@@ -66,9 +71,22 @@ function normalizeSocketUrl(baseUrl: string): string {
 const config = {
 
   get baseUrl() {
+    // 1) Use persisted override if present
+    const persisted = getPersistentValue(keys.snapserver_host, "");
+    if (persisted && persisted.length > 0) {
+      return normalizeSocketUrl(persisted);
+    }
+
+    // 2) Prefer backend-provided snapserver host and rpc_port when available
+    const bridgeSnap = (BRIDGE_CONFIG as any).server?.snapserver;
+    if (bridgeSnap && bridgeSnap.host) {
+      const port = bridgeSnap.rpc_port ? `:${bridgeSnap.rpc_port}` : '';
+      return normalizeSocketUrl(`${bridgeSnap.host}${port}`);
+    }
+
+    // 3) Fallback to the hosting origin
     return normalizeSocketUrl(SNAPSERVER_HOST);
   },
-
 
   set baseUrl(value) {
     setPersistentValue(keys.snapserver_host, value);

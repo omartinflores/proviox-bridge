@@ -1,0 +1,18 @@
+{
+  "server": {
+    "port": 8088,
+    "snapserver": {
+      "host": "10.0.0.12",
+      "rpc_port": 1780,
+      "stream_port": 1780
+    }
+  },
+  "meta": {
+    "author": "Óscar Martín Flores",
+    "company": "Proviox",
+    "email": "proviox@protovision.es",
+    "web": "proviox.protovision.es",
+    "github": "https://github.com/omartinflores",
+    "linkedin": "https://www.linkedin.com/in/omartinflores/"
+  }
+}
