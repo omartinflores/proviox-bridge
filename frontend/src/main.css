@@ -73,6 +73,7 @@ code {
   pointer-events: all;
   transform: translateY(0) scale(1);
   z-index: 2;
+  overflow: hidden;
 }
 
 /* ── Background orbs ─────────────────────── */
