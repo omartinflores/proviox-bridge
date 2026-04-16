@@ -26,7 +26,6 @@ const ListeningScreen: React.FC<ListeningScreenProps> = ({
   onChangeName,
   analyser,
 }) => {
-  const statusDot = isPlaying ? 'online' : 'offline';
   const [showNameModal, setShowNameModal] = useState(false);
   const [nameInput, setNameInput] = useState(clientName);
   const [nameError, setNameError] = useState('');
@@ -224,28 +223,6 @@ const ListeningScreen: React.FC<ListeningScreenProps> = ({
         </div>
 
         <div className={`playing-header ${isPlaying ? 'playing-header--active' : ''}`}>
-          <div className="header-user-info">
-            <div className="status-section">
-              <div className={`status-dot ${statusDot}`}></div>
-              <span className="status-state">{isPlaying ? 'Escuchando' : 'En espera'}</span>
-            </div>
-            <button className="user-section" onClick={openNameModal} title="Cambiar nombre">
-              <span className="client-icon-header">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-              </span>
-              <span className="client-name">{clientName}</span>
-              <span className="btn-edit-icon" aria-label="Cambiar nombre">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M12 20h9" />
-                  <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4z" />
-                </svg>
-              </span>
-            </button>
-          </div>
-
           <div className="switch-wrapper">
             <span className={`switch-label ${!isPlaying ? 'switch-label--active' : ''}`}>Off</span>
             <button
@@ -266,6 +243,24 @@ const ListeningScreen: React.FC<ListeningScreenProps> = ({
               </span>
             </button>
             <span className={`switch-label ${isPlaying ? 'switch-label--active' : ''}`}>On</span>
+          </div>
+          
+          <div className="header-user-info">
+            <button className="user-section" onClick={openNameModal} title="Cambiar nombre">
+              <span className="client-icon-header">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </span>
+              <span className="client-name">{clientName}</span>
+              <span className="btn-edit-icon" aria-label="Cambiar nombre">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4z" />
+                </svg>
+              </span>
+            </button>
           </div>
         </div>
       </div>

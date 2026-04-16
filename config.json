@@ -6,13 +6,5 @@
       "rpc_port": 1780,
       "stream_port": 1780
     }
-  },
-  "meta": {
-    "author": "Óscar Martín Flores",
-    "company": "Proviox",
-    "email": "proviox@protovision.es",
-    "web": "proviox.protovision.es",
-    "github": "https://github.com/omartinflores",
-    "linkedin": "https://www.linkedin.com/in/omartinflores/"
   }
 }
