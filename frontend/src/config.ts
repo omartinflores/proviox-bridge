@@ -1,6 +1,5 @@
-const BRIDGE_CONFIG = (window as any).BRIDGE_CONFIG || {};
-
 const SNAPSERVER_HOST = window.location.host;
+const SNAPSERVER_ORIGIN = window.location.origin;
 
 const meta = {
   author: "Óscar Martín Flores",
@@ -12,7 +11,6 @@ const meta = {
 } as const;
 
 const keys = {
-  snapserver_host: "snapserver.host",
   theme: "theme",
   showoffline: "showoffline"
 }
@@ -63,29 +61,11 @@ function normalizeSocketUrl(baseUrl: string): string {
   }
 }
 
-
 const config = {
 
   get baseUrl() {
-    // 1) Use persisted override if present
-    const persisted = getPersistentValue(keys.snapserver_host, "");
-    if (persisted && persisted.length > 0) {
-      return normalizeSocketUrl(persisted);
-    }
-
-    // 2) Prefer backend-provided snapserver host and rpc_port when available
-    const bridgeSnap = (BRIDGE_CONFIG as any).server?.snapserver;
-    if (bridgeSnap && bridgeSnap.host) {
-      const port = bridgeSnap.rpc_port ? `:${bridgeSnap.rpc_port}` : '';
-      return normalizeSocketUrl(`${bridgeSnap.host}${port}`);
-    }
-
-    // 3) Fallback to the hosting origin
-    return normalizeSocketUrl(SNAPSERVER_HOST);
-  },
-
-  set baseUrl(value) {
-    setPersistentValue(keys.snapserver_host, value);
+    // Use the public origin serving this app in the browser
+    return normalizeSocketUrl(SNAPSERVER_ORIGIN || SNAPSERVER_HOST);
   },
   get theme() {
     return getPersistentValue(keys.theme, Theme.System.toString()) as Theme;
